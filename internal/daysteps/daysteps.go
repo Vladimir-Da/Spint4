@@ -6,6 +6,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/Vladimir-Da/Spint4/internal/spentcalories"
 )
 
 const (
@@ -52,16 +54,21 @@ func parsePackage(data string) (int, time.Duration, error) {
 //Вы сожгли 221.33 ккал.
 
 func DayActionInfo(data string, weight, height float64) string {
-	daySteps, dayDuration, err := parsePackage(data)
+	steps, dayDuration, err := parsePackage(data)
 	if err != nil {
 		fmt.Println(err)
 	}
-	if daySteps <= 0 {
+	if steps <= 0 {
 		return ""
 	}
 	//distance - дистанция в метрах
-	distance := stepLength * float64(daySteps)
+	distance := stepLength * float64(steps)
 	//distance- преобразуем в дистанцию в километрах
 	distance = distance / float64(mInKm)
-	callSpent := WalkingSpentCalories()
+	callSpent, err := spentcalories.WalkingSpentCalories(steps, weight, height, dayDuration)
+	if err != nil {
+		fmt.Println(err)
+	}
+	res := fmt.Sprintf("Количество шагов: %d.\nДистанция составила %.2f км.\nВы сожгли %.2f ккал.\n", steps, distance, callSpent)
+	return res
 }

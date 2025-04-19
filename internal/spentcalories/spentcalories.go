@@ -84,7 +84,10 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 	var res string
 	var spentcalories, avarageSpeed float64
 	steps, typeTrain, duration, err := parseTraining(data)
-	if typeTrain != "Бег" || typeTrain != "Ходьба" {
+	switch typeTrain {
+	case "Бег", "Ходьба":
+
+	default:
 		return "", fmt.Errorf("неизвестный тип тренировки")
 	}
 	if err != nil {
