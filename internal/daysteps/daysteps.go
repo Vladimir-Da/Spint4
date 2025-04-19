@@ -63,5 +63,5 @@ func DayActionInfo(data string, weight, height float64) string {
 	distance := stepLength * float64(daySteps)
 	//distance- преобразуем в дистанцию в километрах
 	distance = distance / float64(mInKm)
-
+	callSpent := WalkingSpentCalories()
 }
