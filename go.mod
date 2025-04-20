@@ -1,4 +1,4 @@
-module github.com/Yandex-Practicum/tracker
+module github.com/Vladimir-Da/Spint4
 
 go 1.24.1
 
