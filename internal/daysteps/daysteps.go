@@ -19,28 +19,28 @@ const (
 
 func parsePackage(data string) (int, time.Duration, error) {
 	if len(data) == 0 {
-		return 0, 0, errors.New("Нет данных")
+		return 0, 0, errors.New("нет данных")
 	}
 	// str - слайс строк где str[0]-кол-во шагов ,str[1]-длительность тренировки; разделитель по знаку "запятой"
 	str := strings.Split(data, ",")
 	if len(str) != 2 {
-		return 0, 0, errors.New("Длинна слайса не 2")
+		return 0, 0, errors.New("длинна слайса не 2")
 	}
 	// steps преобразованное интовое значение кол-во шагов
 	steps, err := strconv.Atoi(str[0])
 	if err != nil {
-		return 0, 0, errors.New("Ошибка преоразования шагов в инт")
+		return 0, 0, errors.New("ошибка преоразования шагов в инт")
 	}
 	if steps <= 0 {
-		return 0, 0, errors.New("Количество шагов не больше 0")
+		return 0, 0, errors.New("количество шагов не больше 0")
 	}
 	//dutation - продолжительность тренировки (формат время)
 	duration, err := time.ParseDuration(str[1])
 	if err != nil {
-		return 0, 0, errors.New("Ошибка преоразования продолжительности тренировки")
+		return 0, 0, errors.New("ошибка преоразования продолжительности тренировки")
 	}
 	if duration == 0 {
-		return 0, 0, errors.New("Тренировка длилась 0 секунд")
+		return 0, 0, errors.New("тренировка длилась 0 секунд")
 	}
 	return steps, duration, nil
 }

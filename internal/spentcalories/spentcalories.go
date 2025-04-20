@@ -65,7 +65,7 @@ func distance(steps int, height float64) float64 {
 // meanSped принимает количество шагов steps, рост пользователя height и продолжительность активности duration  и возвращает среднюю скорость.
 func meanSpeed(steps int, height float64, duration time.Duration) float64 {
 	if duration <= 0 {
-		fmt.Println("Длительность тренировки должна быть больше 0")
+		fmt.Println("длительность тренировки должна быть больше 0")
 		return 0
 	}
 	//hours- продолжительность в часах
