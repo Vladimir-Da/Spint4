@@ -168,7 +168,7 @@ func (suite *DayStepsTestSuite) TestParsePackage() {
 		{
 			name:         "неверная продолжительность - ноль",
 			input:        "678,0h0m",
-			wantSteps:    0,wantLogOutput
+			wantSteps:    0,
 			wantDuration: 0,
 			wantErr:      true,
 		},

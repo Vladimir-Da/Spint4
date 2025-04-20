@@ -3,6 +3,7 @@ package daysteps
 import (
 	"errors"
 	"fmt"
+	"log"
 	"strconv"
 	"strings"
 	"time"
@@ -19,28 +20,45 @@ const (
 
 func parsePackage(data string) (int, time.Duration, error) {
 	if len(data) == 0 {
-		return 0, 0, errors.New("нет данных")
+		err := errors.New("no data")
+		log.Println("error:", err)
+		return 0, 0, err
 	}
 	// str - слайс строк где str[0]-кол-во шагов ,str[1]-длительность тренировки; разделитель по знаку "запятой"
 	str := strings.Split(data, ",")
 	if len(str) != 2 {
-		return 0, 0, errors.New("длинна слайса не 2")
+		err := errors.New("want - steps,duration; but have ")
+		log.Println("error:", err, data)
+		return 0, 0, err
 	}
 	// steps преобразованное интовое значение кол-во шагов
 	steps, err := strconv.Atoi(str[0])
 	if err != nil {
-		return 0, 0, errors.New("ошибка преоразования шагов в инт")
+		err := errors.New("want string to parse into int ; but have ")
+		log.Println("error:", err, str[0])
+		return 0, 0, err
 	}
 	if steps <= 0 {
-		return 0, 0, errors.New("количество шагов не больше 0")
+		err := errors.New("steps must be positive")
+		log.Println("error: steps = ", steps, err)
+		return 0, 0, err
 	}
 	//dutation - продолжительность тренировки (формат время)
 	duration, err := time.ParseDuration(str[1])
 	if err != nil {
-		return 0, 0, errors.New("ошибка преоразования продолжительности тренировки")
+		err := errors.New(" cant parse into duration")
+		log.Println("error: ", str[1], err)
+		return 0, 0, err
 	}
 	if duration == 0 {
-		return 0, 0, errors.New("тренировка длилась 0 секунд")
+		err := errors.New("the training lasted 0")
+		log.Println("error: ", err)
+		return 0, 0, err
+	}
+	if duration < 0 {
+		err := errors.New("duration is negative")
+		log.Println("error:", err)
+		return 0, 0, err
 	}
 	return steps, duration, nil
 }

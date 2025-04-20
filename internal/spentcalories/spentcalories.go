@@ -43,7 +43,7 @@ func parseTraining(data string) (int, string, time.Duration, error) {
 	if duration <= 0 {
 		return 0, "", 0, errors.New("длительность тренировки должна быть больше 0")
 	}
-	// trainigType- вид тренировки("ходьба")
+	// trainigType- вид тренировки("Ходьба" или "Бег")
 	trainigType := str[1]
 	if trainigType == "" {
 		return 0, "", 0, errors.New("нет типа тренировки")
@@ -95,17 +95,17 @@ func TrainingInfo(data string, weight, height float64) (string, error) {
 	case "Бег":
 		spentcalories, err = RunningSpentCalories(steps, weight, height, duration)
 		if err != nil {
-			fmt.Println(errors.Unwrap(err))
+			fmt.Println("error from func RunningSpentCalories")
 		}
 	case "Ходьба":
 		spentcalories, err = WalkingSpentCalories(steps, weight, height, duration)
 		if err != nil {
-			fmt.Println(errors.Unwrap(err))
+			fmt.Println("error from func WalkingSpentCalories")
 		}
 	default:
 		return "", errors.New("неизвестный тип тренировки")
 	}
-	res = fmt.Sprintf("Тип тренировки: %s\nДлительность: %.2f.\nДистанция: %.2f км.\n Скорость: %.2f км/ч\nСожгли калорий: %.2f\n", typeTrain, duration.Hours(), distanceKm, avarageSpeed, spentcalories)
+	res = fmt.Sprintf("Тип тренировки: %s\nДлительность: %.2f ч.\nДистанция: %.2f км.\nСкорость: %.2f км/ч\nСожгли калорий: %.2f\n", typeTrain, duration.Hours(), distanceKm, avarageSpeed, spentcalories)
 	return res, nil
 }
 
